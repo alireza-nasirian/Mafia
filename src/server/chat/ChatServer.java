@@ -25,4 +25,16 @@ public class ChatServer {
         }
     }
 
+
+    /**
+     * Broadcast method send a message to members.
+     *
+     * @param message is message to be sent
+     */
+    protected void broadcast(String message){
+        for (UserThread u : userThreads){
+            u.sendMessage(message);
+        }
+    }
+
 }
