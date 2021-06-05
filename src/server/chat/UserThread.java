@@ -22,7 +22,7 @@ public class UserThread extends Thread {
      * @param input    the input stream
      * @param username the username of member
      */
-    public UserThread(ChatServer server,  DataOutputStream output,DataInputStream input, String username){
+    public UserThread(ChatServer server, DataOutputStream output, DataInputStream input, String username) {
         this.chatServer = server;
         this.input = input;
         this.output = output;
@@ -33,21 +33,34 @@ public class UserThread extends Thread {
      * receive a message from a user and send it to others
      */
     @Override
-    public void run(){
+    public void run() {
         try {
             String clientMessage;
             String serverMassage;
             long start = System.currentTimeMillis();
-            long end = start + chatServer.getSeconds() *1000;
+            long end = start + chatServer.getSeconds() * 1000;
 
-            while (System.currentTimeMillis() < end){
+            while (System.currentTimeMillis() < end) {
                 clientMessage = input.readUTF();
                 serverMassage = "[" + username + "]: " + clientMessage;
                 System.out.println(serverMassage);
                 chatServer.broadcast(serverMassage);
             }
-        }catch (IOException ex){
+        } catch (IOException ex) {
             System.out.println("Error in UserThread: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * send a message to a client
+     *
+     * @param message is message to be sent
+     */
+    protected void sendMessage(String message) {
+        try {
+            output.writeUTF(message);
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
