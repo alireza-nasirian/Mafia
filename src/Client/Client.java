@@ -36,5 +36,23 @@ public class Client {
        }
    }
 
+    /**
+     * Sets user name.
+     *
+     * @param userName is user name
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * Gets user name.
+     *
+     * @return the user name
+     */
+    String getUserName() {
+        return this.userName;
+    }
+
 
 }
