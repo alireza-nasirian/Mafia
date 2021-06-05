@@ -29,4 +29,26 @@ public class UserThread extends Thread {
         this.username = username;
     }
 
+    /**
+     * receive a message from a user and send it to others
+     */
+    @Override
+    public void run(){
+        try {
+            String clientMessage;
+            String serverMassage;
+            long start = System.currentTimeMillis();
+            long end = start + chatServer.getSeconds() *1000;
+
+            while (System.currentTimeMillis() < end){
+                clientMessage = input.readUTF();
+                serverMassage = "[" + username + "]: " + clientMessage;
+                System.out.println(serverMassage);
+                chatServer.broadcast(serverMassage);
+            }
+        }catch (IOException ex){
+            System.out.println("Error in UserThread: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
 }
