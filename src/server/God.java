@@ -487,6 +487,27 @@ public class God {
         return (i != 1);
     }
 
+    /**
+     * start voting and return selected player.
+     *
+     * @return a player that has the most number votes.
+     * @throws IOException the io exception.
+     */
+    public Person voting() throws IOException {
+        chatServer.setListenerUsers(observers);
+        votes = new ArrayList<Integer>(alive_persons.size());
+        for (int i = 0; i < alive_persons.size(); i++) {
+            votes.add(i, 0);
+        }
+        votingServer.StartVoting(chatServer, alive_persons, votes, VOTING_TIME);
+        checkVotingFinished();
+        System.out.println(votingServer.votes);
+        if (repetitiousMax(votes)) {
+            return null;
+        }
+        return alive_persons.get(votes.indexOf(Collections.max(votes)));
+    }
+
 
 
 
