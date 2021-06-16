@@ -40,4 +40,18 @@ public class VotingServer {
         }
     }
 
+
+    /**
+     * Gets seconds.
+     *
+     * @return the seconds
+     */
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public ArrayList<VotingThread> getThreads() {
+        return threads;
+    }
+
 }
