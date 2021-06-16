@@ -560,6 +560,16 @@ public class God {
     }
 
 
+    /**
+     * checks if game is finished or no.
+     *
+     * @return true if game was finished.
+     */
+    public boolean endOfGame() {
+        return (mafias.size() >= citizens.size()) || (mafias.isEmpty());
+    }
+
+
 
 
 
