@@ -427,6 +427,22 @@ public class God {
         }
     }
 
+    /**
+     * Talk down a person that psychologist said.
+     *
+     * @return the person that has been talked down.
+     * @throws IOException the io exception
+     */
+    public Person talkDown() throws IOException {
+        if (!inGame(psychologist)) {
+            return null;
+        }
+        printList(alive_persons, psychologist);
+        psychologist.getOutput().writeUTF("\nwrite the name of a person tp talk down:");
+        String name = psychologist.getInput().readUTF();
+        return search(alive_persons, name);
+    }
+
 
 
 
