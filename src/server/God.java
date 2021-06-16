@@ -508,6 +508,34 @@ public class God {
         return alive_persons.get(votes.indexOf(Collections.max(votes)));
     }
 
+    /**
+     * asks mayor if he wants to cancel the voting or no.
+     *
+     * @return true if mayor cancel the voting.
+     */
+    public boolean cancelVoting() {
+        if (!inGame(mayor)) {
+            return false;
+        }
+        try {
+            mayor.getOutput().writeUTF("do you want to cancel the voting?\nwrite yes or no.");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(mayor);
+        }
+        String choice = null;
+        try {
+            choice = mayor.getInput().readUTF();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(mayor);
+        }
+        if (choice == null) {
+            return false;
+        }
+        return choice.equalsIgnoreCase("yes");
+    }
+
 
 
 
