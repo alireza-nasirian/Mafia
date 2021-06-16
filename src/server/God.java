@@ -333,6 +333,41 @@ public class God {
     }
 
 
+    /**
+     * save a person that cityDoctor said.
+     *
+     * @return the person that has been saved.
+     * @throws IOException .
+     */
+    public Person cityDoctorSave() throws IOException {
+        if (!inGame(cityDoctor)) {
+            return null;
+        }
+        cityDoctor.getOutput().writeUTF("choose one of the persons to save.\nyou can only save yourself once.");
+        printList(alive_persons, cityDoctor);
+        cityDoctor.getOutput().writeUTF("type the name of the player you want to save.");
+        String name = cityDoctor.getInput().readUTF();
+        Person choose = search(alive_persons, name);
+        if (choose == null) {
+            return null;
+        } else if (choose == cityDoctor) {
+            if (cityDoctor.getSave_himself() == 0) {
+                cityDoctor.getOutput().writeUTF("you have already saved yourself.\nno one will be saved tonight");
+                return null;
+            } else {
+                cityDoctor.setAlive(1);
+                cityDoctor.setSave_himself(0);
+                return cityDoctor;
+            }
+        } else {
+            if (choose.getAlive() == 0) {
+                choose.setAlive(1);
+            }
+            return choose;
+        }
+    }
+
+
 
 
 
