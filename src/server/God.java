@@ -390,6 +390,44 @@ public class God {
     }
 
 
+    /**
+     * asks a professional if he want to shoot.
+     * if receive yes, professional shoot will happen.
+     *
+     * @return the person that has been killed.
+     * @throws IOException .
+     */
+    public Person professionalShoot() throws IOException {
+        if (!inGame(professional)) {
+            return null;
+        }
+        professional.getOutput().writeUTF("do you want to shoot tonight?\n(write yes or no");
+        String shoot = professional.getInput().readUTF();
+        if (shoot.equalsIgnoreCase("yes")) {
+            printList(alive_persons, professional);
+            professional.getOutput().writeUTF("\nwrite the name of one of the players to shoot.");
+            String name = professional.getInput().readUTF();
+            Person choose = search(alive_persons, name);
+            if (choose == null) {
+                return null;
+            } else if (mafias.contains(choose)) {
+                choose.setAlive(0);
+                return choose;
+            } else {
+                professional.setAlive(0);
+                alive_persons.remove(professional);
+                citizens.remove(professional);
+                dead.add(professional);
+                deadRoles = deadRoles + professional.getUsername();
+                leaveGame(professional);
+                return professional;
+            }
+        } else {
+            return null;
+        }
+    }
+
+
 
 
 
