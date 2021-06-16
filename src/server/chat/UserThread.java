@@ -6,6 +6,8 @@ import java.io.IOException;
 
 /**
  * The  User thread class.
+ * @author Alireza Nasirian
+ * @version 1.3
  */
 public class UserThread extends Thread {
 
@@ -13,6 +15,7 @@ public class UserThread extends Thread {
     private DataInputStream input;
     private DataOutputStream output;
     private String username;
+    private boolean finish = false;
 
     /**
      * Instantiates a new User thread.
@@ -34,21 +37,24 @@ public class UserThread extends Thread {
      */
     @Override
     public void run() {
+        finish = false;
         try {
             String clientMessage;
             String serverMassage;
             long start = System.currentTimeMillis();
-            long end = start + chatServer.getSeconds() * 1000;
+            long end = start + chatServer.getSeconds() * 1000L;
 
             while (System.currentTimeMillis() < end) {
                 clientMessage = input.readUTF();
                 serverMassage = "[" + username + "]: " + clientMessage;
-                System.out.println(serverMassage);
+                if (System.currentTimeMillis() > end){
+                    serverMassage = serverMassage + " (last word)";
+                }
                 chatServer.broadcast(serverMassage);
             }
-        } catch (IOException ex) {
-            System.out.println("Error in UserThread: " + ex.getMessage());
-            ex.printStackTrace();
+            finish = true;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -57,11 +63,12 @@ public class UserThread extends Thread {
      *
      * @param message is message to be sent
      */
-    protected void sendMessage(String message) {
-        try {
+    protected void sendMessage(String message) throws IOException {
+
             output.writeUTF(message);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    }
+
+    public boolean isFinish() {
+        return finish;
     }
 }
