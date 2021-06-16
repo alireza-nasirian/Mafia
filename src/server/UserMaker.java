@@ -32,5 +32,22 @@ public class UserMaker extends Thread {
         this.usernames = usernames;
     }
 
+    /**
+     * checks that a username is repetitious or no.
+     * @param username is name to check.
+     * @param usernames is list of chosen names.
+     * @return true if the given name is repetitious.
+     */
+    private boolean checkUsername(String username, ArrayList<String> usernames) {
+        boolean state = false;
+        for (String name : usernames) {
+            if (name.equalsIgnoreCase(username)) {
+                state = true;
+                break;
+            }
+        }
+        return state;
+    }
+
 
 }
