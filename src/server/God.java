@@ -300,6 +300,38 @@ public class God {
         }
     }
 
+    /**
+     * save a mafia that drLecter said.
+     *
+     * @return the person that has been saved.
+     * @throws IOException .
+     */
+    public Person lecterSave() throws IOException {
+        if (!inGame(drLecter)) {
+            return null;
+        }
+        drLecter.getOutput().writeUTF("choose one of the mafias to save.\nyou can only save yourself once.");
+        printList(mafias, drLecter);
+        drLecter.getOutput().writeUTF("write the name of the mafia you want to save.");
+        String name = drLecter.getInput().readUTF();
+        Person choose = search(mafias, name);
+        if (choose == null) {
+            return null;
+        } else if (choose == drLecter) {
+            if (drLecter.getSave_himself() == 0) {
+                drLecter.getOutput().writeUTF("you have already saved yourself.\nno mafia will be saved tonight");
+                return null;
+            } else {
+                drLecter.setAlive(1);
+                drLecter.setSave_himself(0);
+                return drLecter;
+            }
+        } else {
+            choose.setAlive(1);
+            return choose;
+        }
+    }
+
 
 
 
