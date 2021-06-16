@@ -73,5 +73,13 @@ public class God {
         return null;
     }
 
+    /**
+     * @param person is player to be checked
+     * @return false if player is dead or null.
+     */
+    private boolean inGame(Person person) {
+        return (person != null) && (alive_persons.contains(person));
+    }
+
 
 }
