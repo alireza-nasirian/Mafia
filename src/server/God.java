@@ -163,5 +163,22 @@ public class God {
         observers.addAll(alive_persons);
     }
 
+    /**
+     * remove a player that disconnected
+     * @param person is disconnected person
+     */
+    public void kickOut(Person person) {
+
+        alive_persons.remove(person);
+        observers.remove(person);
+        if (person instanceof Mafia) {
+            mafias.remove(person);
+        } else {
+            citizens.remove(person);
+        }
+        dead.add(person);
+
+    }
+
 
 }
