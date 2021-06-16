@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * The type Voting thread.
+ *
  * @author Alireza Nasirian
  * @version 1.2
  */
@@ -79,6 +80,13 @@ public class VotingThread extends Thread{
             }
         }
         return null;
+    }
+
+    /**
+     * @return finished
+     */
+    public boolean isFinished() {
+        return finished;
     }
 
 
