@@ -367,6 +367,28 @@ public class God {
         }
     }
 
+    /**
+     * send role of a player that detective asked.
+     *
+     */
+    public void inquire() throws IOException {
+        if (!inGame(detective)) {
+            return;
+        }
+        printList(alive_persons, detective);
+        detective.getOutput().writeUTF("\nwrite the name of a person tp inquire:");
+        String name = detective.getInput().readUTF();
+        Person choose = search(alive_persons, name);
+        if (choose == null) {
+            return;
+        }
+        if (choose.getIsMafia()) {
+            detective.getOutput().writeUTF(choose.getUsername() + " is mafia");
+        } else {
+            detective.getOutput().writeUTF(choose.getUsername() + " is not mafia");
+        }
+    }
+
 
 
 
