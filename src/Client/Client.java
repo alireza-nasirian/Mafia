@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 /**
  * The Client class.
+ *
  * @author Alireza Nasirian
- * @version 1.1
+ * @version 1.2
  */
 public class Client {
 
@@ -19,22 +20,22 @@ public class Client {
     /**
      * run read an write thread.
      */
-    public void execute(){
-       System.out.println("enter the port number to connect:");
-       int port = sc.nextInt();
-       try(Socket socket = new Socket(hostName, port)) {
-           System.out.println("Connected to the chat server");
-           System.out.println("enter your username");
+    public void execute() {
+        System.out.println("enter the port number to connect:");
+        int port = sc.nextInt();
+        try {
+            Socket socket = new Socket(hostName, port);
+            System.out.println("Connected to the server");
+            System.out.println("type your username:");
 
-           new ReadThread(socket, this).start();
-           new WriteThread(socket, this).start();
-       }
-       catch (UnknownHostException ex) {
-           System.out.println("Server not found: " + ex.getMessage());
-       } catch (IOException ex) {
-           System.out.println("I/O Error: " + ex.getMessage());
-       }
-   }
+            new ReadThread(socket, this).start();
+            new WriteThread(socket, this).start();
+        } catch (UnknownHostException ex) {
+            System.out.println("Server not found: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("I/O Error: " + ex.getMessage());
+        }
+    }
 
     /**
      * Sets user name.
