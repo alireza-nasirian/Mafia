@@ -536,6 +536,29 @@ public class God {
         return choice.equalsIgnoreCase("yes");
     }
 
+    /**
+     * votes and send result to observers.
+     */
+    public void doVoting() {
+        Person person = null;
+        try {
+            person = voting();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if ((person != null) && !cancelVoting()) {
+            chatServer.setListenerUsers(observers);
+            chatServer.broadcast(person.getUsername() + " will leave the game.");
+            alive_persons.remove(person);
+            if (person instanceof Mafia) {
+                mafias.remove(person);
+            } else {
+                citizens.remove(person);
+            }
+            leaveGame(person);
+        }
+    }
+
 
 
 
