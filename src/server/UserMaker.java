@@ -49,5 +49,46 @@ public class UserMaker extends Thread {
         return state;
     }
 
+    @Override
+    public void run() {
+        String name = "";
+        while (true) {
+            try {
+                name = input.readUTF();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if (!checkUsername(name, usernames)) {
+                break;
+            } else {
+                try {
+                    output.writeUTF("this username is already chosen. try another username:");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        usernames.add(name);
+        this.username = name;
+        String s = "";
+        try {
+            output.writeUTF("type \"ready\" to start the game.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while (!s.equalsIgnoreCase("ready")) {
+            try {
+                s = input.readUTF();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (s.equalsIgnoreCase("ready")) {
+                ready = true;
+                break;
+            }
+        }
+        System.out.println(getUsername() + " is ready");
+    }
+
 
 }
