@@ -570,6 +570,24 @@ public class God {
     }
 
 
+    /**
+     * checks if all players typed "ready" pr no.
+     */
+    public void checkReady() {
+        boolean ready;
+        do {
+            ready = true;
+            for (UserMaker userMaker : userMakers) {
+                if (!userMaker.isReady()) {
+                    ready = false;
+                    break;
+                }
+            }
+            String s = ready + "a";
+        } while (!ready);
+    }
+
+
 
 
 
