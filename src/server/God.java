@@ -762,6 +762,51 @@ public class God {
     }
 
 
+    /**
+     * Game loop.
+     */
+    public void gameLoop() {
+        System.out.println("Game started.");
+        System.out.println("waiting players to be ready...");
+        checkReady();
+        System.out.println("every one is ready");
+        playRoles();
+        System.out.println("roles played.");
+        chatServer.setListenerUsers(observers);
+        chatServer.broadcast("tonight is introduction night;");
+        introduction();
+        while (true) {
+            day();
+            System.out.println("chat finished");
+            doVoting();
+            checkVotingFinished();
+            if (endOfGame()) {
+                break;
+            }
+            night();
+            if (endOfGame()) {
+                break;
+            }
+        }
+        chatServer.setListenerUsers(observers);
+        if (mafias.isEmpty()) {
+            chatServer.broadcast("Citizens won the game.");
+            System.out.println("Citizens won the game.");
+        } else {
+            chatServer.broadcast("Mafias won the game.");
+            System.out.println("Mafias won the game.");
+        }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
 
 
 
