@@ -624,6 +624,34 @@ public class God {
         } while (!finish);
     }
 
+    /**
+     * asks given player that he want to see chats and information of game or no.
+     *
+     * @param person is given person.
+     */
+    public void leaveGame(Person person) {
+        try {
+            person.getOutput().writeUTF("Do you want to see the rest of the game?\ntype yes or no.");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(person);
+        }
+        String choice = null;
+        try {
+            choice = person.getInput().readUTF();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(person);
+        }
+        if (choice == null) {
+            return;
+        }
+        if (choice.equalsIgnoreCase("no")) {
+            observers.remove(person);
+        }
+    }
+
+
 
 
 
