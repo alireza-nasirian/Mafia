@@ -468,6 +468,26 @@ public class God {
     }
 
 
+    /**
+     * checks that if the max element of list is repetitious or no.
+     *
+     * @param integers is given list.
+     * @return false is max value of list is unique.
+     */
+    private boolean repetitiousMax(ArrayList<Integer> integers) {
+        int max = Collections.max(integers);
+        System.out.println(max);
+        int i = 0;
+        for (Integer integer : integers) {
+            if (integer == max) {
+                i++;
+            }
+        }
+        System.out.println(i);
+        return (i != 1);
+    }
+
+
 
 
 
