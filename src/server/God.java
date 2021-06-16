@@ -82,4 +82,23 @@ public class God {
     }
 
 
+    /**
+     * send a usernames of given list to given player.
+     *
+     * @param people is given list.
+     * @param person is given player.
+     */
+    private void printList(ArrayList<Person> people, Person person) {
+        int i = 0;
+        for (Person person1 : people) {
+            try {
+                person.getOutput().writeUTF(++i + "- " + person1.getUsername());
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                kickOut(person);
+            }
+        }
+    }
+
+
 }
