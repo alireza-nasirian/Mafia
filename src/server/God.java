@@ -587,6 +587,26 @@ public class God {
         } while (!ready);
     }
 
+    /**
+     * Check chat finished.
+     */
+    public void checkChatFinished(ArrayList<Person> people) {
+        boolean finish;
+        do {
+            finish = true;
+            for (Person person : people) {
+                if (person == silentPlayer) {
+                    continue;
+                }
+                if (!person.getUserThread().isFinish()) {
+                    finish = false;
+                    break;
+                }
+            }
+            String s = finish + "a";
+        } while (!finish);
+    }
+
 
 
 
