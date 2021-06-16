@@ -91,4 +91,39 @@ public class UserMaker extends Thread {
     }
 
 
+    /**
+     * Gets output.
+     *
+     * @return the output
+     */
+    public DataOutputStream getOutput() {
+        return output;
+    }
+
+    /**
+     * Gets input.
+     *
+     * @return the input
+     */
+    public DataInputStream getInput() {
+        return input;
+    }
+
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @return true if user type "ready"
+     */
+    public boolean isReady() {
+        return ready;
+    }
+
+
 }
