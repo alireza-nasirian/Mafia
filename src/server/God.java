@@ -181,4 +181,77 @@ public class God {
     }
 
 
+    /**
+     * send the role of every player to himself.
+     * introduce mafias to each other and introduce city doctor to mayor.
+     */
+    public void introduction() {
+        for (Person person : alive_persons) {
+            try {
+                person.getOutput().writeUTF("you are " + person.getRole());
+            } catch (IOException ioException) {
+                System.out.println(ioException.getMessage());
+                kickOut(person);
+            }
+        }
+        if (mayor != null && cityDoctor != null) {
+            try {
+                mayor.getOutput().writeUTF(mayor.getUsername() + " is city doctor.");
+            } catch (IOException ioException) {
+                System.out.println(ioException.getMessage());
+                kickOut(mayor);
+            }
+        }
+        if (simpleMafia != null) {
+            try {
+                godfather.getOutput().writeUTF(simpleMafia.getUsername() + " is Simple Mafia");
+            } catch (IOException ioException) {
+                System.out.println(ioException.getMessage());
+                kickOut(godfather);
+            }
+            try {
+                simpleMafia.getOutput().writeUTF(godfather.getUsername() + " is God Father");
+            } catch (IOException ioException) {
+                System.out.println(ioException.getMessage());
+                kickOut(simpleMafia);
+            }
+            if (drLecter != null) {
+                try {
+                    drLecter.getOutput().writeUTF(simpleMafia.getUsername() + " is Simple Mafia");
+                } catch (IOException ioException) {
+                    System.out.println(ioException.getMessage());
+                    kickOut(drLecter);
+                }
+                try {
+                    simpleMafia.getOutput().writeUTF(drLecter.getUsername() + " is DrLecter");
+                } catch (IOException ioException) {
+                    System.out.println(ioException.getMessage());
+                    kickOut(simpleMafia);
+                }
+            }
+        }
+        if (drLecter != null) {
+            try {
+                godfather.getOutput().writeUTF(drLecter.getUsername() + "is DrLecter");
+            } catch (IOException ioException) {
+                System.out.println(ioException.getMessage());
+                kickOut(godfather);
+            }
+            try {
+                drLecter.getOutput().writeUTF(godfather.getUsername() + " is God Father");
+            } catch (IOException ioException) {
+                System.out.println(ioException.getMessage());
+                kickOut(drLecter);
+            }
+        }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 }
