@@ -251,6 +251,56 @@ public class God {
         }
     }
 
+    /**
+     * Mafias chat with each other and shoot to someone.
+     *
+     * @return the person that has been killed.
+     */
+    public Person mafiaShoot() {
+        for (Person mafia : mafias) {
+            try {
+                mafia.getOutput().writeUTF("start chatting for " + MAFIAS_CHAT_TIME +" seconds. Finally the godfather chooses the victim.\n");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                kickOut(mafia);
+            }
+        }
+        chatServer.startChat(mafias, mafias, MAFIAS_CHAT_TIME);
+        checkChatFinished(mafias);
+        Person chooser;
+        if (inGame(godfather)) {
+            chooser = godfather;
+        } else if (inGame(drLecter)) {
+            chooser = drLecter;
+        } else if (inGame(simpleMafia)) {
+            chooser = simpleMafia;
+        } else {
+            return null;
+        }
+        try {
+            chooser.getOutput().writeUTF("write the name of one player to shoot:");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(chooser);
+        }
+        printList(citizens, chooser);
+        String name = null;
+        try {
+            name = chooser.getInput().readUTF();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(chooser);
+        }
+        Person person = search(citizens, name);
+        if (person == null) {
+            return null;
+        } else {
+            person.setAlive((person.getAlive() - 1));
+            return person;
+        }
+    }
+
+
 
 
 
