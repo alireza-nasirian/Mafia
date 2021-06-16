@@ -100,5 +100,68 @@ public class God {
         }
     }
 
+    /**
+     * shuffle userMakers and play the roles randomly and Instantiates players.
+     */
+    public void playRoles() {
+        Collections.shuffle(userMakers);
+        Iterator iterator = userMakers.iterator();
+        UserMaker userMaker = (UserMaker) iterator.next();
+        detective = new Citizen(Roles.DETECTIVE, userMaker.getUsername(), userMaker.getOutput(), userMaker.getInput(), chatServer);
+        alive_persons.add(detective);
+        citizens.add(detective);
+        userMaker = (UserMaker) iterator.next();
+        cityDoctor = new CityDoctor(Roles.CITY_DOCTOR, userMaker.getUsername(), userMaker.getOutput(), userMaker.getInput(), chatServer);
+        alive_persons.add(cityDoctor);
+        citizens.add(cityDoctor);
+        userMaker = (UserMaker) iterator.next();
+        godfather = new Godfather(Roles.GODFATHER, userMaker.getUsername(), userMaker.getOutput(), userMaker.getInput(), chatServer);
+        alive_persons.add(godfather);
+        mafias.add(godfather);
+        if (iterator.hasNext()) {
+            userMaker = (UserMaker) iterator.next();
+            professional = new Citizen(Roles.PROFESSIONAL, userMaker.getUsername(), userMaker.getOutput(), userMaker.getInput(), chatServer);
+            alive_persons.add(professional);
+            citizens.add(professional);
+        }
+        if (iterator.hasNext()) {
+            userMaker = (UserMaker) iterator.next();
+            dieHard = new DieHard(Roles.DIE_HARD, userMaker.getUsername(), userMaker.getOutput(), userMaker.getInput(), chatServer);
+            alive_persons.add(dieHard);
+            citizens.add(dieHard);
+        }
+        if (iterator.hasNext()) {
+            userMaker = (UserMaker) iterator.next();
+            drLecter = new DrLecter(Roles.DR_LECTER, userMaker.getUsername(), userMaker.getOutput(), userMaker.getInput(), chatServer);
+            alive_persons.add(drLecter);
+            mafias.add(drLecter);
+        }
+        if (iterator.hasNext()) {
+            userMaker = (UserMaker) iterator.next();
+            mayor = new Citizen(Roles.MAYOR, userMaker.getUsername(), userMaker.getOutput(), userMaker.getInput(), chatServer);
+            alive_persons.add(mayor);
+            citizens.add(mayor);
+        }
+        if (iterator.hasNext()) {
+            userMaker = (UserMaker) iterator.next();
+            psychologist = new Citizen(Roles.PSYCHOLOGIST, userMaker.getUsername(), userMaker.getOutput(), userMaker.getInput(), chatServer);
+            alive_persons.add(psychologist);
+            citizens.add(psychologist);
+        }
+        if (iterator.hasNext()) {
+            userMaker = (UserMaker) iterator.next();
+            simpleMafia = new Mafia(Roles.SIMPLE_MAFIA, userMaker.getUsername(), userMaker.getOutput(), userMaker.getInput(), chatServer);
+            alive_persons.add(simpleMafia);
+            mafias.add(simpleMafia);
+        }
+        if (iterator.hasNext()) {
+            userMaker = (UserMaker) iterator.next();
+            simpleCitizen = new Citizen(Roles.SIMPLE_CITIZEN, userMaker.getUsername(), userMaker.getOutput(), userMaker.getInput(), chatServer);
+            alive_persons.add(simpleCitizen);
+            citizens.add(simpleCitizen);
+        }
+        observers.addAll(alive_persons);
+    }
+
 
 }
