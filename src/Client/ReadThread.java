@@ -46,7 +46,7 @@ public class ReadThread extends Thread{
             }
             catch (IOException ex) {
                 System.out.println("Error reading from server: " + ex.getMessage());
-                ex.printStackTrace();
+                System.out.println("game is finished");
                 break;
             }
         }
