@@ -443,6 +443,31 @@ public class God {
         return search(alive_persons, name);
     }
 
+    /**
+     * die hard inquire.
+     *
+     * @return the string that contain roles of dead players.
+     * @throws IOException .
+     */
+    public String inquireDead() throws IOException {
+        if (!inGame(dieHard) || (dieHard.getInquiry() == 0)) {
+            return null;
+        }
+        dieHard.getOutput().writeUTF("do you want to inquire roles of dead people?\n(write yes or no)");
+        String inquire = dieHard.getInput().readUTF();
+        if (inquire.equalsIgnoreCase("yes")) {
+            StringBuilder res = new StringBuilder("die hard inquired last night.\nthis is the result:");
+            Collections.shuffle(dead);  //The order of the people who left should not be known
+            for (Person person : dead) {
+                res.append("\n").append(person.getRole().toString());
+            }
+            res.append("\nhave left the game");
+            return res.toString();
+        }
+        return null;
+    }
+
+
 
 
 
