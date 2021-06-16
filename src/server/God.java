@@ -722,6 +722,45 @@ public class God {
         }
     }
 
+    /**
+     * Day events.
+     */
+    public void day() {
+        chatServer.setListenerUsers(observers);
+        chatServer.broadcast("Wake up. its noon now.");
+        if (deadRoles != null) {
+            chatServer.broadcast("We lost these people last night:");
+            chatServer.broadcast(deadRoles);
+        } else {
+            chatServer.broadcast("No one died last night");
+        }
+        deadRoles = null;
+
+        if (inquiredRoles != null) {
+            chatServer.broadcast(inquiredRoles);
+        }
+
+        if (silentPlayer != null) {
+            chatServer.broadcast(silentPlayer.getUsername() + " is silent today.");
+        }
+
+        chatServer.broadcast("list of alive persons:\n");
+        for (Person p : alive_persons) {
+            chatServer.broadcast(p.getUsername());
+        }
+
+        chatServer.broadcast("Start chatting for " + CHAT_TIME + "  seconds:");
+        if (silentPlayer != null) {
+            alive_persons.remove(silentPlayer);
+        }
+        chatServer.startChat(alive_persons, observers, CHAT_TIME);
+        System.out.println("chat started");
+        checkChatFinished(alive_persons);
+        if (silentPlayer != null) {
+            alive_persons.add(silentPlayer);
+        }
+    }
+
 
 
 
