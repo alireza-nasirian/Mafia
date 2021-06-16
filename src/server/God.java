@@ -56,5 +56,22 @@ public class God {
         this.userMakers = users;
     }
 
+    /**
+     * find a player with given username in given list
+     * returns null if a player didnt exist in list with given username
+     *
+     * @param people is given list
+     * @param name   is given username
+     * @return found person
+     */
+    private Person search(ArrayList<Person> people, String name) {
+        for (Person person : people) {
+            if (name.equalsIgnoreCase(person.getUsername())) {
+                return person;
+            }
+        }
+        return null;
+    }
+
 
 }
