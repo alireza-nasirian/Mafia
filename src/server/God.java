@@ -607,6 +607,24 @@ public class God {
         } while (!finish);
     }
 
+    /**
+     * Check voting finished.
+     */
+    public void checkVotingFinished() {
+        boolean finish;
+        do {
+            finish = true;
+            for (Person person : alive_persons) {
+                if (!votingServer.getThreads().get(alive_persons.indexOf(person)).isFinished()) {
+                    finish = false;
+                    break;
+                }
+            }
+            String s = finish + "a";
+        } while (!finish);
+    }
+
+
 
 
 
