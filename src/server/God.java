@@ -651,6 +651,30 @@ public class God {
         }
     }
 
+    /**
+     * Checks a list and removes dead player of list and add it to dead players list.
+     *
+     * @param people is given list.
+     */
+    public void checkDead(ArrayList<Person> people) {
+        Person person = null;
+        for (Person p : people) {
+            if (p.getAlive() == 0) {
+                person = p;
+                break;
+            }
+        }
+        if (person == null){
+            return;
+        }
+        deadRoles += person.getRole();
+        alive_persons.remove(person);
+        people.remove(person);
+        dead.add(person);
+        leaveGame(person);
+    }
+
+
 
 
 
