@@ -674,6 +674,54 @@ public class God {
         leaveGame(person);
     }
 
+    /**
+     * night events.
+     */
+    public void night() {
+
+        chatServer.setListenerUsers(observers);
+        chatServer.broadcast("night.\nevery one must sleep.");
+        mafiaShoot();
+        try {
+            cityDoctorSave();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(cityDoctor);
+        }
+        try {
+            silentPlayer = talkDown();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(psychologist);
+        }
+        try {
+            inquire();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(detective);
+        }
+        try {
+            professionalShoot();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(professional);
+        }
+        try {
+            lecterSave();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(drLecter);
+        }
+        checkDead(citizens);
+        checkDead(mafias);
+        try {
+            inquiredRoles = inquireDead();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            kickOut(dieHard);
+        }
+    }
+
 
 
 
