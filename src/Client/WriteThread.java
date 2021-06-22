@@ -39,20 +39,27 @@ public class WriteThread extends Thread{
      */
     public void run() {
 
-        //Console console = System.console();
         Scanner sc = new Scanner(System.in);
 
         String text;
 
         do {
-            text = sc.nextLine();//("[" + userName + "]: ");
+            text = sc.nextLine();
+            if (text.equalsIgnoreCase("exit")){
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
             try {
                 output.writeUTF(text);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-        } while (!text.equals("bye"));
+        } while (!text.equals("exit"));
 
         try {
             socket.close();
