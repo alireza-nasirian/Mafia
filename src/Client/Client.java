@@ -15,7 +15,7 @@ public class Client {
 
     private static final String hostName = "127.0.0.1";
     private String userName;
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     /**
      * run read an write thread.
