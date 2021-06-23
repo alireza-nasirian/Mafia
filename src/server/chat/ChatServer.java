@@ -65,6 +65,7 @@ public class ChatServer {
                     god.citizens.remove(person);
                 }
                 god.dead.add(person);
+                broadcast(message);
             }
         }
     }
